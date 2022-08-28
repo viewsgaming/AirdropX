@@ -1,0 +1,13 @@
+Broadcast_Location: '{prefix} &7The &c{airdrop_name} &7airdrop&c has been dropped at&f {location}'
+Broadcast_Timeout: '{prefix} &cThe &f{airdrop_name}&c airdrop has been took away.'
+Broadcast_Player_Took_Airdrop: "{prefix} &f{player} &7has took all items inside &f{airdrop_name} &7airdrop"
+
+# -------------------------------------------------------------------------------------------------
+# Messages shown when player runs a command he lacks permission for
+# -------------------------------------------------------------------------------------------------
+No_Permission: "&cNo permission: {permission}"
+
+# -------------------------------------------------------------------------------------------------
+# Internal versioning number
+# -------------------------------------------------------------------------------------------------
+Version: 1
