@@ -14,6 +14,7 @@ public final class AirdropCommand extends SimpleCommandGroup {
 		registerSubcommand(new CallAirdropCommand(this));
 		registerSubcommand(new RemoveAirdropCommand(this));
 		registerSubcommand(new AirdropListCommand(this));
+		registerSubcommand(new CallAtPlayerCommand(this));
 		registerSubcommand(new ReloadCommand());
 	}
 

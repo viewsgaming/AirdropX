@@ -35,7 +35,7 @@ public class CreateAirdropCommand extends SimpleSubCommand {
 
 		tellNoPrefix("&8&m&l----------------------------------");
 		tellNoPrefix("&f Please edit the airdrop first before call it.");
-		SimpleComponent.of("&e                         [⚙]").onClickRunCmd("/airdrop edit " + name).onHover("Edit the airdrop").send(getPlayer());
+		SimpleComponent.of("&e                         [⚙]").onClickRunCmd("/airdropx edit " + name).onHover("Edit the airdrop").send(getPlayer());
 		tellNoPrefix("&8&m&l----------------------------------");
 	}
 }

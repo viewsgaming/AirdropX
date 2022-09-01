@@ -16,6 +16,7 @@ import org.mineacademy.fo.BlockUtil;
 import org.mineacademy.fo.Common;
 import org.mineacademy.fo.RandomUtil;
 import org.mineacademy.fo.Valid;
+import org.mineacademy.fo.debug.LagCatcher;
 import org.mineacademy.fo.model.HookManager;
 import org.mineacademy.fo.model.Replacer;
 import org.mineacademy.fo.remain.CompMaterial;
@@ -30,6 +31,8 @@ public class AutoSpawnTask extends BukkitRunnable {
 
 	@Override
 	public void run() {
+
+		LagCatcher.start("AutoSpawnTask");
 
 		int randomRange = RandomUtil.nextBetween(10 , airdrop.getRandomSpawnRange());
 		Location randomLocation;
@@ -46,6 +49,7 @@ public class AutoSpawnTask extends BukkitRunnable {
 			callAt(airdrop , randomLocation);
 		}
 
+		LagCatcher.end("AutoSpawnTask");
 	}
 
 	private void callAt(Airdrop airdrop , final Location destination) {
@@ -61,12 +65,16 @@ public class AutoSpawnTask extends BukkitRunnable {
 		for (int items = 0; items < airdrop.getItemsList().size(); items++) {
 
 			boolean hasEmptySlot = false;
+			int filledSlot = 0;
 
 			for (ItemStack stack : chestInv.getContents()) {
 				if (stack == null) {
 					hasEmptySlot = true;
 					break;
+				} else {
+					filledSlot++;
 				}
+
 			}
 
 			try {
@@ -76,7 +84,7 @@ public class AutoSpawnTask extends BukkitRunnable {
 				continue;
 			}
 
-			if (hasEmptySlot) {
+			if (hasEmptySlot && filledSlot < airdrop.getMaximumItems()) {
 				if (RandomUtil.chanceD(airdrop.getItemsList().get(items).getValue())) {
 					chestInv.addItem(airdrop.getItemsList().get(items).getKey());
 				}

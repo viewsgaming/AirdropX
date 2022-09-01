@@ -22,3 +22,5 @@ permissions:
     default: op
   AirdropX.listall:
     default: op
+  AirdropX.callatplayer:
+    default: op

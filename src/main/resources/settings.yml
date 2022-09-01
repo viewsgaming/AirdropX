@@ -24,7 +24,7 @@ Airdrop:
 #
 # * THE FIRST ALIAS IS THE MAIN LABEL, PLEASE DO NOT REMOVE IT. *
 # -------------------------------------------------------------------------------------------------
-Command_Aliases: [airdropx, airdrop]
+Command_Aliases: [airdropx , airdrop]
 
 # -------------------------------------------------------------------------------------------------
 # What language should we use for messages? If it exists, the language file will be copied 

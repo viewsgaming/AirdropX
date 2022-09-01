@@ -17,6 +17,7 @@ import org.mineacademy.fo.Common;
 import org.mineacademy.fo.RandomUtil;
 import org.mineacademy.fo.command.SimpleCommandGroup;
 import org.mineacademy.fo.command.SimpleSubCommand;
+import org.mineacademy.fo.debug.LagCatcher;
 import org.mineacademy.fo.model.Replacer;
 import org.mineacademy.fo.remain.CompMaterial;
 import org.mineacademy.fo.remain.CompMetadata;
@@ -68,6 +69,7 @@ public class CallAirdropCommand extends SimpleSubCommand {
 				Location spawnLocation = new Location(player.getWorld() , x , y , z);
 				callAt(airdrop , spawnLocation);
 			} else {
+
 				tellNoPrefix(Core.PREFIX + " &cPlease specify a location.");
 			}
 
@@ -113,11 +115,14 @@ public class CallAirdropCommand extends SimpleSubCommand {
 		for (int items = 0; items < airdrop.getItemsList().size(); items++) {
 
 			boolean hasEmptySlot = false;
+			int filledSlot = 0;
 
 			for (ItemStack stack : chestInv.getContents()) {
 				if (stack == null) {
 					hasEmptySlot = true;
 					break;
+				} else {
+					filledSlot++;
 				}
 			}
 
@@ -128,7 +133,7 @@ public class CallAirdropCommand extends SimpleSubCommand {
 				continue;
 			}
 
-			if (hasEmptySlot) {
+			if (hasEmptySlot && filledSlot < airdrop.getMaximumItems()) {
 				if (RandomUtil.chanceD(airdrop.getItemsList().get(items).getValue())) {
 					chestInv.addItem(airdrop.getItemsList().get(items).getKey());
 				}

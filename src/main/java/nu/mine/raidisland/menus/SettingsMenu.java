@@ -94,6 +94,9 @@ public class SettingsMenu extends Menu {
 				"&4Note:&7 using {player}",
 				"for instance of player",
 				"",
+				"&4Warning:&c If you want to",
+				"&cdisable it type \"null\"",
+				"",
 				"Current: " + airdrop.getCommandToExecute()));
 
 		autoSpawnButton = new ButtonMenu(new AutoDropSettingsMenu(airdrop) , ItemCreator.of(CompMaterial.MAP,

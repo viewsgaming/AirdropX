@@ -44,6 +44,8 @@ public class Airdrop extends YamlConfig {
 	private boolean randomLocation;
 	private int range;
 
+	private int maximumItems;
+
 	// ----------------------------- \\
 
 	// ---------- Region ---------- \\
@@ -73,8 +75,15 @@ public class Airdrop extends YamlConfig {
 		this.randomSpawnRange = Settings.Airdrop.DEFAULT_RANGE;
 		this.regionByWorldGuard = null;
 		this.autoSpawnTime = SimpleTime.from("30 minutes");
+		this.maximumItems = 27;
 
 		this.loadConfiguration(NO_DEFAULT, "airdrop/" + airdropName + ".yml");
+	}
+
+	public void setMaximumItems(int maximumItems) {
+		this.maximumItems = maximumItems;
+
+		save();
 	}
 
 	public void setAutoSpawnTime(SimpleTime autoSpawnTime) {
@@ -151,6 +160,7 @@ public class Airdrop extends YamlConfig {
 		this.center = getLocation("Center_Location_For_Auto_Spawn");
 		this.regionByWorldGuard = getString("World_Guard_Region");
 		this.autoSpawnTime = getTime("Auto_Spawn_Time");
+		this.maximumItems = getInteger("Maximum_Items" , 27);
 		save();
 	}
 
@@ -167,6 +177,7 @@ public class Airdrop extends YamlConfig {
 		this.set("Center_Location_For_Auto_Spawn" , this.center);
 		this.set("World_Guard_Region" , this.regionByWorldGuard);
 		this.set("Auto_Spawn_Time" , this.autoSpawnTime);
+		this.set("Maximum_Items" , this.maximumItems);
 	}
 
 	public boolean isReadyToStart() {

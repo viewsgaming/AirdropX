@@ -6,6 +6,7 @@ import nu.mine.raidisland.airdrop.Airdrop;
 import nu.mine.raidisland.menus.AutoDropSettingsMenu;
 import org.bukkit.Material;
 import org.bukkit.block.Chest;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -61,9 +62,17 @@ public final class PlayerListener implements Listener {
 	public void onBreak(BlockBreakEvent event) {
 		if (event.getBlock().getType() != Material.CHEST) return;
 		Chest chest = (Chest) event.getBlock().getState();
+		Player player = event.getPlayer();
 
-		if (CompMetadata.hasMetadata(chest , Airdrop.NBT_TAG) && !event.getPlayer().isOp()) {
+		if (CompMetadata.hasMetadata(chest , Airdrop.NBT_TAG) && !player.isOp()) {
 			event.setCancelled(true);
+		} else if (CompMetadata.hasMetadata(chest , Airdrop.NBT_TAG) && player.isOp()) {
+			try {
+				Airdrop.getChestFromActiveTask(chest).cancel();
+			} catch (NullPointerException ignored) {
+			}
+
+			Common.tellNoPrefix(player , Core.PREFIX + " &fYou have broke the box of airdrop.");
 		}
 	}
 
