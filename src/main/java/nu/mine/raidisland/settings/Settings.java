@@ -19,6 +19,8 @@ public class Settings extends SimpleSettings {
 		public static Boolean BROADCAST_LOCATION_ON_CALL;
 		public static Integer LOCATION_SEARCH_ATTEMPTS;
 
+		public static Integer DELAY_BETWEEN_EACH_UNBOXING;
+
 		private static void init() {
 			setPathPrefix("Airdrop");
 
@@ -27,6 +29,7 @@ public class Settings extends SimpleSettings {
 			DEFAULT_RANDOM_LOCATION = getBoolean("Default_Random_Location");
 			BROADCAST_LOCATION_ON_CALL = getBoolean("Broadcast_Location_On_Call");
 			LOCATION_SEARCH_ATTEMPTS = getInteger("Location_Search_Attempts");
+			DELAY_BETWEEN_EACH_UNBOXING = getInteger("Delay_Between_Each_Unboxing");
 		}
 	}
 }

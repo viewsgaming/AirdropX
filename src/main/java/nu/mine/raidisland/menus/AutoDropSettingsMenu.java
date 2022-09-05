@@ -5,6 +5,7 @@ import nu.mine.raidisland.PlayerCache;
 import nu.mine.raidisland.airdrop.Airdrop;
 import nu.mine.raidisland.conversations.AutoSpawnTimeConversation;
 import nu.mine.raidisland.conversations.RandomRangeSetupConversation;
+import nu.mine.raidisland.conversations.RequirementPlayerConversation;
 import nu.mine.raidisland.conversations.WorldGuardConversation;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
@@ -32,6 +33,9 @@ public class AutoDropSettingsMenu extends Menu {
 
 	@Position(9 * 1 + 7)
 	private final Button startOrStopButton;
+
+	@Position(9 * 1 + 5)
+	private final ButtonConversation RequirementConnectedPlayersButton;
 
 
 	public AutoDropSettingsMenu(Airdrop airdrop) {
@@ -162,11 +166,22 @@ public class AutoDropSettingsMenu extends Menu {
 				"",
 				"Current: " + airdrop.getRegionByWorldGuard()));
 
+		RequirementConnectedPlayersButton = new ButtonConversation(new RequirementPlayerConversation(airdrop) , CompMaterial.PLAYER_HEAD,
+				"&cRequirement connected player to spawn airdrop.",
+				"",
+				"Set the requirement of connected",
+				"player to spawn airdrop.",
+				"If player less than",
+				"your setup it won't spawn.",
+				"",
+				"Current: " + airdrop.getRequirementConnectedPlayers());
 
 		worldGuardNotLoaded = Button.DummyButton.makeDummy(ItemCreator.of(CompMaterial.GRASS_BLOCK, "&cSet World Guard Region",
 				"",
 				"&4Please install World Guard",
 				"&4to use this function."));
+
+
 
 
 	}

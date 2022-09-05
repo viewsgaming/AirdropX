@@ -2,11 +2,13 @@
 # Default settings for airdrops
 # -------------------------------------------------------------------------------------------------
 Airdrop:
-  Default_Auto_Destroy_Time: 5 minutes # You can use seconds, minutes, hours as a time suffix
+  # You can use seconds, minutes, hours as a time suffix
+  Default_Auto_Destroy_Time: 5 minutes
   Default_Range: 2000
   Default_Random_Location: true
   Broadcast_Location_On_Call: true
-
+  # In seconds only (No suffix)
+  Delay_Between_Each_Unboxing: 30
   # -------------------------------------------------------------------------------------------------
   # Attempt number to find suitable location for spawning airdrop.
   # If not found it'll be notified and airdrop won't spawn until next time.
@@ -15,8 +17,6 @@ Airdrop:
   # try to increase the number.
   # -------------------------------------------------------------------------------------------------
   Location_Search_Attempts: 10
-
-
 
 
 # -------------------------------------------------------------------------------------------------

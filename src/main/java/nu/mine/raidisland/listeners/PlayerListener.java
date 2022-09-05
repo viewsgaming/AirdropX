@@ -5,6 +5,7 @@ import nu.mine.raidisland.PlayerCache;
 import nu.mine.raidisland.airdrop.Airdrop;
 import nu.mine.raidisland.menus.AutoDropSettingsMenu;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -24,6 +25,25 @@ import org.mineacademy.fo.settings.Lang;
 
 @AutoRegister
 public final class PlayerListener implements Listener {
+
+	@EventHandler
+	public void onChestOpen(PlayerInteractEvent event) {
+		Block block = event.getClickedBlock();
+		if (block != null && block.getType() == Material.CHEST) {
+			Chest chest = (Chest) event.getClickedBlock().getState();
+			if (CompMetadata.hasMetadata(chest , "Opened")) return;
+			if (CompMetadata.hasMetadata(chest, Airdrop.NBT_TAG) && !event.getPlayer().isOp()) {
+				// Tested
+				if (PlayerCache.canAddCooldown(event.getPlayer())) {
+					PlayerCache.addCooldown(event.getPlayer());
+				} else {
+					event.setCancelled(true);
+				}
+			}
+		}
+
+	}
+
 
 	@EventHandler
 	public void onChestClose(InventoryCloseEvent event) {

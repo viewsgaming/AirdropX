@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import nu.mine.raidisland.Core;
 import nu.mine.raidisland.airdrop.Airdrop;
 import nu.mine.raidisland.settings.Settings;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -32,7 +33,12 @@ public class AutoSpawnTask extends BukkitRunnable {
 	@Override
 	public void run() {
 
-		LagCatcher.start("AutoSpawnTask");
+
+
+		if (airdrop.getRequirementConnectedPlayers() >= Bukkit.getOnlinePlayers().size() + 1) {
+			Common.broadcast(Replacer.replaceArray(Lang.of("Broadcast_Not_Enough_Player_To_Spawn"),"prefix" , Core.PREFIX , "requirement" , airdrop.getRequirementConnectedPlayers() , "airdrop_name" , airdrop.getName()));
+			return;
+		}
 
 		int randomRange = RandomUtil.nextBetween(10 , airdrop.getRandomSpawnRange());
 		Location randomLocation;

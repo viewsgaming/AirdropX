@@ -8,9 +8,17 @@ import javax.annotation.Nullable;
 
 import lombok.Setter;
 import nu.mine.raidisland.airdrop.Airdrop;
+import nu.mine.raidisland.settings.Settings;
 import org.bukkit.entity.Player;
+import org.mineacademy.fo.Common;
+import org.mineacademy.fo.MathUtil;
+import org.mineacademy.fo.Messenger;
+import org.mineacademy.fo.TimeUtil;
 import org.mineacademy.fo.constants.FoConstants;
+import org.mineacademy.fo.model.Replacer;
+import org.mineacademy.fo.model.SimpleTime;
 import org.mineacademy.fo.remain.Remain;
+import org.mineacademy.fo.settings.Lang;
 import org.mineacademy.fo.settings.YamlConfig;
 
 import lombok.Getter;
@@ -28,6 +36,9 @@ public final class PlayerCache extends YamlConfig {
 	private Airdrop selectedAirdrop;
 	@Setter
 	private boolean isDoingSetting;
+
+	private static final Map<UUID , Long> cooldownMap = new HashMap<>();
+	// -------------------------
 
 	private PlayerCache(String playerName , UUID uniqueId) {
 		this.uniqueId = uniqueId;
@@ -99,6 +110,25 @@ public final class PlayerCache extends YamlConfig {
 			return cache;
 		}
 	}
+
+	public static boolean canAddCooldown(Player player) {
+
+		if (cooldownMap.containsKey(player.getUniqueId())) {
+			if (cooldownMap.get(player.getUniqueId()) > System.currentTimeMillis()) {
+				long timeLeft = (cooldownMap.get(player.getUniqueId()) - System.currentTimeMillis()) / 1000;
+				String formatMessage = Replacer.replaceArray(Lang.of("Player_Is_In_Cooldown"), "seconds_plural" , Common.plural(timeLeft , "second"));
+				Common.tellNoPrefix(player , formatMessage);
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	public static void addCooldown(Player player) {
+		cooldownMap.put(player.getUniqueId() , System.currentTimeMillis() + (Settings.Airdrop.DELAY_BETWEEN_EACH_UNBOXING * 1000L));
+	}
+
 
 	/**
 	 * Clear the entire cache map

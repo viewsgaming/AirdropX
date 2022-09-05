@@ -11,16 +11,14 @@ import org.bukkit.block.Chest;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.Vector;
 import org.mineacademy.fo.BlockUtil;
 import org.mineacademy.fo.Common;
 import org.mineacademy.fo.RandomUtil;
 import org.mineacademy.fo.command.SimpleCommandGroup;
 import org.mineacademy.fo.command.SimpleSubCommand;
 import org.mineacademy.fo.model.Replacer;
-import org.mineacademy.fo.remain.CompMaterial;
-import org.mineacademy.fo.remain.CompMetadata;
-import org.mineacademy.fo.remain.CompParticle;
-import org.mineacademy.fo.remain.CompSound;
+import org.mineacademy.fo.remain.*;
 import org.mineacademy.fo.settings.Lang;
 
 import java.util.ArrayList;

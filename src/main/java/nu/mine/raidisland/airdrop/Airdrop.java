@@ -10,7 +10,6 @@ import org.bukkit.block.Chest;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitTask;
 import org.mineacademy.fo.Common;
-import org.mineacademy.fo.model.HookManager;
 import org.mineacademy.fo.model.Replacer;
 import org.mineacademy.fo.model.SimpleTime;
 import org.mineacademy.fo.model.Tuple;
@@ -46,17 +45,20 @@ public class Airdrop extends YamlConfig {
 
 	private int maximumItems;
 
-	// ----------------------------- \\
+	// ---------------------------- \\
 
-	// ---------- Region ---------- \\
+	// ---------- Auto drop ---------- \\
 
 	private boolean worldGuardSetting;
 
 	private String regionByWorldGuard;
 	private Location center;
 	private int randomSpawnRange;
-
 	private SimpleTime autoSpawnTime;
+
+	private int requirementConnectedPlayers;
+
+	// ----------------------------- \\
 
 	// Called when ConfigItems class loads your airdrop from given folder.
 	private Airdrop(String name) {
@@ -76,8 +78,16 @@ public class Airdrop extends YamlConfig {
 		this.regionByWorldGuard = null;
 		this.autoSpawnTime = SimpleTime.from("30 minutes");
 		this.maximumItems = 27;
+		this.requirementConnectedPlayers = 1;
 
 		this.loadConfiguration(NO_DEFAULT, "airdrop/" + airdropName + ".yml");
+	}
+
+
+	public void setRequirementConnectedPlayers(int requirementConnectedPlayers) {
+		this.requirementConnectedPlayers = requirementConnectedPlayers;
+
+		save();
 	}
 
 	public void setMaximumItems(int maximumItems) {
@@ -161,6 +171,7 @@ public class Airdrop extends YamlConfig {
 		this.regionByWorldGuard = getString("World_Guard_Region");
 		this.autoSpawnTime = getTime("Auto_Spawn_Time");
 		this.maximumItems = getInteger("Maximum_Items" , 27);
+		this.requirementConnectedPlayers = getInteger("Requirement_Connected_Players" , 1);
 		save();
 	}
 
@@ -178,6 +189,7 @@ public class Airdrop extends YamlConfig {
 		this.set("World_Guard_Region" , this.regionByWorldGuard);
 		this.set("Auto_Spawn_Time" , this.autoSpawnTime);
 		this.set("Maximum_Items" , this.maximumItems);
+		this.set("Requirement_Connected_Players" , this.requirementConnectedPlayers);
 	}
 
 	public boolean isReadyToStart() {
