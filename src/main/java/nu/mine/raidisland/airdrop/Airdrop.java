@@ -35,6 +35,7 @@ public class Airdrop extends YamlConfig {
 
 	// ---------- Common ---------- \\
 	private String commandToExecute;
+	private int chanceToExecuteCommand;
 	private String airdropName;
 	private SimpleTime destroyTime;
 
@@ -72,6 +73,7 @@ public class Airdrop extends YamlConfig {
 		this.randomLocation = true;
 		this.range = Settings.Airdrop.DEFAULT_RANGE;
 		this.commandToExecute = "";
+		this.chanceToExecuteCommand = 100;
 		this.worldGuardSetting = false;
 		this.center = null;
 		this.randomSpawnRange = Settings.Airdrop.DEFAULT_RANGE;
@@ -80,9 +82,16 @@ public class Airdrop extends YamlConfig {
 		this.maximumItems = 27;
 		this.requirementConnectedPlayers = 1;
 
+
 		this.loadConfiguration(NO_DEFAULT, "airdrop/" + airdropName + ".yml");
 	}
 
+
+	public void setChanceToExecuteCommand(int chanceToExecuteCommand) {
+		this.chanceToExecuteCommand = chanceToExecuteCommand;
+
+		save();
+	}
 
 	public void setRequirementConnectedPlayers(int requirementConnectedPlayers) {
 		this.requirementConnectedPlayers = requirementConnectedPlayers;
@@ -165,6 +174,7 @@ public class Airdrop extends YamlConfig {
 		this.range = getInteger("Range" , Settings.Airdrop.DEFAULT_RANGE);
 		this.randomLocation = getBoolean("Random_Location" , Settings.Airdrop.DEFAULT_RANDOM_LOCATION);
 		this.commandToExecute = getString("Command_To_Execute", "");
+		this.chanceToExecuteCommand = getInteger("Chance_To_Execute", 100);
 		this.randomSpawnRange = getInteger("Random_Spawn_Range" , Settings.Airdrop.DEFAULT_RANGE);
 		this.worldGuardSetting = getBoolean("Enabled_World_Guard_Setting" , false);
 		this.center = getLocation("Center_Location_For_Auto_Spawn");
@@ -183,6 +193,7 @@ public class Airdrop extends YamlConfig {
 		this.set("Range", this.range);
 		this.set("Random_Location" , this.randomLocation);
 		this.set("Command_To_Execute", this.commandToExecute);
+		this.set("Chance_To_Execute" , this.chanceToExecuteCommand);
 		this.set("Random_Spawn_Range" , this.randomSpawnRange);
 		this.set("Enabled_World_Guard_Setting" , this.worldGuardSetting);
 		this.set("Center_Location_For_Auto_Spawn" , this.center);

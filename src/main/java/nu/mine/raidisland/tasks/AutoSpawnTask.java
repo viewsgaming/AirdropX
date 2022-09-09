@@ -28,12 +28,11 @@ import org.mineacademy.fo.settings.Lang;
 
 @RequiredArgsConstructor
 public class AutoSpawnTask extends BukkitRunnable {
+
 	private final Airdrop airdrop;
 
 	@Override
 	public void run() {
-
-
 
 		if (airdrop.getRequirementConnectedPlayers() >= Bukkit.getOnlinePlayers().size() + 1) {
 			Common.broadcast(Replacer.replaceArray(Lang.of("Broadcast_Not_Enough_Player_To_Spawn"),"prefix" , Core.PREFIX , "requirement" , airdrop.getRequirementConnectedPlayers() , "airdrop_name" , airdrop.getName()));

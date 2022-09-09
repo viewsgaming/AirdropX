@@ -5,6 +5,7 @@ import nu.mine.raidisland.airdrop.Airdrop;
 import nu.mine.raidisland.settings.Settings;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Chest;
@@ -61,12 +62,13 @@ public class CallAirdropCommand extends SimpleSubCommand {
 
 		} else {
 
-			if (args.length == 4) {
-				final int x = findNumber(1 , "Please check your X position.");
-				final int y = findNumber(2 , "Please check your Y position.");
-				final int z = findNumber(3 , "Please check your Z position.");
+			if (args.length == 5) {
+				final World world = findWorld(args[1]);
+				final int x = findNumber(2 , "Please check your X position.");
+				final int y = findNumber(3 , "Please check your Y position.");
+				final int z = findNumber(4 , "Please check your Z position.");
 
-				Location spawnLocation = new Location(player.getWorld() , x , y , z);
+				Location spawnLocation = new Location(world , x , y , z);
 				callAt(airdrop , spawnLocation);
 			} else {
 
@@ -110,8 +112,6 @@ public class CallAirdropCommand extends SimpleSubCommand {
 		chestInv.setMaxStackSize(9 * 6);
 		CompMetadata.setMetadata(chest , Airdrop.NBT_TAG , airdrop.getName());
 
-
-
 		for (int items = 0; items < airdrop.getItemsList().size(); items++) {
 
 			boolean hasEmptySlot = false;
@@ -145,6 +145,7 @@ public class CallAirdropCommand extends SimpleSubCommand {
 		for (int i = 1; i <= 3; i++) {
 			chest.getWorld().strikeLightningEffect(chest.getLocation());
 		}
+
 		CompSound.ENTITY_LIGHTNING_BOLT_THUNDER.play(chest.getLocation());
 		CompParticle.EXPLOSION_HUGE.spawn(chest.getLocation().clone().add(0 , 2 , 0));
 
@@ -166,10 +167,12 @@ public class CallAirdropCommand extends SimpleSubCommand {
 			case 1:
 				return completeLastWord(Airdrop.getAirdropsNames());
 			case 2:
-				return completeLastWord(player.getLocation().getBlockX());
+				return completeLastWordWorldNames();
 			case 3:
-				return completeLastWord(player.getLocation().getBlockY());
+				return completeLastWord(player.getLocation().getBlockX());
 			case 4:
+				return completeLastWord(player.getLocation().getBlockY());
+			case 5:
 				return completeLastWord(player.getLocation().getBlockZ());
 		}
 

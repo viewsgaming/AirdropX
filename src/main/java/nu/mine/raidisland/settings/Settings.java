@@ -14,7 +14,6 @@ public class Settings extends SimpleSettings {
 
 		public static SimpleTime DEFAULT_AUTO_DESTROY_TIME;
 		public static Integer DEFAULT_RANGE;
-
 		public static Boolean DEFAULT_RANDOM_LOCATION;
 		public static Boolean BROADCAST_LOCATION_ON_CALL;
 		public static Integer LOCATION_SEARCH_ATTEMPTS;

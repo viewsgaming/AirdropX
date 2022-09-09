@@ -11,12 +11,8 @@ import nu.mine.raidisland.airdrop.Airdrop;
 import nu.mine.raidisland.settings.Settings;
 import org.bukkit.entity.Player;
 import org.mineacademy.fo.Common;
-import org.mineacademy.fo.MathUtil;
-import org.mineacademy.fo.Messenger;
-import org.mineacademy.fo.TimeUtil;
 import org.mineacademy.fo.constants.FoConstants;
 import org.mineacademy.fo.model.Replacer;
-import org.mineacademy.fo.model.SimpleTime;
 import org.mineacademy.fo.remain.Remain;
 import org.mineacademy.fo.settings.Lang;
 import org.mineacademy.fo.settings.YamlConfig;
@@ -124,7 +120,6 @@ public final class PlayerCache extends YamlConfig {
 
 		return true;
 	}
-
 	public static void addCooldown(Player player) {
 		cooldownMap.put(player.getUniqueId() , System.currentTimeMillis() + (Settings.Airdrop.DELAY_BETWEEN_EACH_UNBOXING * 1000L));
 	}

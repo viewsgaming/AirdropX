@@ -24,3 +24,5 @@ permissions:
     default: op
   AirdropX.callatplayer:
     default: op
+  AirdropX.bypass.delay:
+    default: false

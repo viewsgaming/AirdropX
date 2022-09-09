@@ -15,9 +15,9 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.checkerframework.checker.units.qual.A;
 import org.mineacademy.fo.Common;
 import org.mineacademy.fo.Messenger;
+import org.mineacademy.fo.RandomUtil;
 import org.mineacademy.fo.annotation.AutoRegister;
 import org.mineacademy.fo.model.Replacer;
 import org.mineacademy.fo.remain.CompMetadata;
@@ -29,16 +29,18 @@ public final class PlayerListener implements Listener {
 	@EventHandler
 	public void onChestOpen(PlayerInteractEvent event) {
 		Block block = event.getClickedBlock();
+		Player player = event.getPlayer();
 		if (block != null && block.getType() == Material.CHEST) {
 			Chest chest = (Chest) event.getClickedBlock().getState();
 			if (CompMetadata.hasMetadata(chest , "Opened")) return;
-			if (CompMetadata.hasMetadata(chest, Airdrop.NBT_TAG) && !event.getPlayer().isOp()) {
-				// Tested
+			if (CompMetadata.hasMetadata(chest, Airdrop.NBT_TAG) && !player.hasPermission("AirdropX.bypass.delay")) {
+
 				if (PlayerCache.canAddCooldown(event.getPlayer())) {
 					PlayerCache.addCooldown(event.getPlayer());
 				} else {
 					event.setCancelled(true);
 				}
+
 			}
 		}
 
@@ -53,7 +55,11 @@ public final class PlayerListener implements Listener {
 				Chest chest = (Chest) event.getInventory().getLocation().getBlock().getState();
 				if (CompMetadata.hasMetadata(chest , "Opened")) return;
 
-				if (CompMetadata.hasMetadata(chest, Airdrop.NBT_TAG) && event.getInventory().isEmpty()) {
+				boolean hasMetadata = CompMetadata.hasMetadata(chest, Airdrop.NBT_TAG);
+				boolean isExecute = CompMetadata.hasMetadata(chest, "isExecute");
+				String name = CompMetadata.getMetadata(chest , Airdrop.NBT_TAG);
+
+				if (hasMetadata && event.getInventory().isEmpty()) {
 
 					try {
 						Airdrop.getChestFromActiveTask(chest).cancel();
@@ -63,16 +69,29 @@ public final class PlayerListener implements Listener {
 					}
 
 					chest.getLocation().getBlock().setType(Material.AIR);
-					String name = CompMetadata.getMetadata(chest , Airdrop.NBT_TAG);
+
 					String broadcast = Replacer.replaceArray(Lang.of("Broadcast_Player_Took_Airdrop") , "prefix" , Core.PREFIX , "player" , event.getPlayer().getName() , "airdrop_name" , name);
 
-					String airdropName = CompMetadata.getMetadata(chest , Airdrop.NBT_TAG);
-					Airdrop airdrop = Airdrop.findAirdrop(airdropName);
+					Airdrop airdrop = Airdrop.findAirdrop(name);
 
-					Common.dispatchCommand(event.getPlayer() ,airdrop.getCommandToExecute());
+					if (!isExecute)
+						if (RandomUtil.chance(airdrop.getChanceToExecuteCommand()))
+							Common.dispatchCommand(event.getPlayer() , airdrop.getCommandToExecute());
+
 					Messenger.broadcastAnnounce(broadcast);
 					CompMetadata.setMetadata(chest, "Opened" , event.getPlayer().getName());
+
+				} else if (hasMetadata && !event.getInventory().isEmpty() && !isExecute) {
+
+					Airdrop airdrop = Airdrop.findAirdrop(name);
+
+					if (RandomUtil.chance(airdrop.getChanceToExecuteCommand()))
+						Common.dispatchCommand(event.getPlayer() ,airdrop.getCommandToExecute());
+
+					CompMetadata.setMetadata(chest, "isExecute" , "true");
 				}
+
+
 			} catch (ClassCastException ex) {
 			}
 		}
