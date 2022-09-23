@@ -1,0 +1,95 @@
+# -------------------------------------------------------------------------------------------------
+# Default settings for airdrops
+# -------------------------------------------------------------------------------------------------
+Airdrop:
+  # You can use seconds, minutes, hours as a time suffix
+  Default_Auto_Destroy_Time: 5 minutes
+  Default_Range: 2000
+  Default_Random_Location: true
+  Broadcast_Location_On_Call: true
+  # In seconds only (No suffix)
+  Delay_Between_Each_Unboxing: 30
+  # When player try to open an airdrop, must wait for a delay time first.
+  Default_Opening_Delay_Time: 30 seconds
+  # Delete an airdrop when delay is end.
+  Delete_When_Delay_Is_End: 1 minutes
+  # -------------------------------------------------------------------------------------------------
+  # Attempt number to find suitable location for spawning airdrop.
+  # If not found it'll be notified and airdrop won't spawn until next time.
+  #
+  # * If you found a problem that airdrop won't auto spawn or cannot find suitable location very often
+  # try to increase the number.
+  # -------------------------------------------------------------------------------------------------
+  Location_Search_Attempts: 10
+  # -------------------------------------------------------------------------------------------------
+  # Custom holograms for an airdrop
+  # IMPORTANT: You must always leave {do_not_remove_me_and_always_leave_me_in_last_line} in the last line and add line above it
+  # otherwise plugin will be crashed.
+  # -------------------------------------------------------------------------------------------------
+  Holograms:
+    Main:
+      # ------ Add line only in this box ------- #
+      - '&c{airdrop_name}'
+      # -------- Do not touch. Add above ----------- #
+      - '{do_not_remove_me_and_always_leave_me_in_last_line}'
+    Last_Line:
+      Timeout: "&cTimeout: &f{time}"
+      Opening: "&cOpening in: &f{time}"
+    # Edit holograms position
+    Adjustment:
+      X: 0.5
+      Y: -0.8
+      Z: 0.6
+
+# ----------------------------(Experiment!)--------------------------------------------------------
+# This will be auto delete glitched airdrops when your server is fully loaded.
+# Using "/airdropx crashfixer" if you don't concerned about it.
+# This problem will be occurred when you server wasn't shutdown properly.
+#
+# IMPORTANT: During fixing do not spawn any airdrop until (Value x Speed) time is finish!!
+# If you still see holograms remain don't worry! just wait the task finish
+# or waiting for the console notified.
+# -------------------------------------------------------------------------------------------------
+Crash_Fixer:
+  Enabled: false
+  # Value mean how many times that task going to execute the logic (Recommend : 2)
+  Value: 2
+  # Speed is how fast that task will execute. (Recommends: 20 seconds)
+  Speed: 20 seconds
+
+
+# -------------------------------------------------------------------------------------------------
+# What commands should trigger the main plugin command group?
+#
+# * THE FIRST ALIAS IS THE MAIN LABEL, PLEASE DO NOT REMOVE IT. *
+# -------------------------------------------------------------------------------------------------
+Command_Aliases: [airdropx , airdrop]
+
+# -------------------------------------------------------------------------------------------------
+# What language should we use for messages? If it exists, the language file will be copied 
+# to your messages/ folder where you can edit it.
+# -------------------------------------------------------------------------------------------------
+Locale: en
+
+# -------------------------------------------------------------------------------------------------
+# Time of some plugin's operations is measured. You can also use the LagCatcher class to invoke
+# this feature. We log a console message if an operation takes over the time below (milliseconds). 
+# Set to -1 to disable.
+# -------------------------------------------------------------------------------------------------
+Log_Lag_Over_Milis: 100
+
+# -------------------------------------------------------------------------------------------------
+# List of section names that will print informative messages about their features.
+# The Debugger class utilizes this key and will only print messages for sections enabled below.
+# -------------------------------------------------------------------------------------------------
+Debug: []
+
+# -------------------------------------------------------------------------------------------------
+# The AirdropX prefix. Highly recommend to leave it empty for beautiful.
+# -------------------------------------------------------------------------------------------------
+Prefix: ""
+
+# -------------------------------------------------------------------------------------------------
+# Do not change this value, otherwise it will corrupt your plugin installation!
+# -------------------------------------------------------------------------------------------------
+Version: 1
