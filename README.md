@@ -54,3 +54,5 @@ AirdropX.compass┃Default: op ▶ allow you to get a compass which navigating t
 Hello everyone, This is the first version of the AirdropX plugin I have to say there might be some bugs that remain or some features isn't good enough. If you encountered these please write me in the Discord or Discussion room on my plugin page. Please do not post an error in the review section. Thank you very much for using my plugin.
 
 If you have an idea for this plugin join my discord and you can suggest it for me if it looks interesting, I can add in next semi-big update.
+
+[Download](https://www.spigotmc.org/resources/airdropsx-1-16-5-1-19-x-gui-customization-custom-drop-rate-auto-random-dropping-etc.104891/)
