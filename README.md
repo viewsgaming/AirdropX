@@ -25,7 +25,8 @@ Right click on compass shows the distance between an airdrop.(New! Version : 1.4
 
 ![Showcases](https://user-images.githubusercontent.com/88251253/187979216-cd9969f5-5875-4d7e-8a9d-bf3a87d0a8a5.png)
 
-![Youtube](https://www.youtube.com/watch?v=a0jdry1KY5o) Old version (1.3.0b)
+[Youtube](https://www.youtube.com/watch?v=a0jdry1KY5o) Old version (1.3.0b)
+
 
 ![Permissions](https://user-images.githubusercontent.com/88251253/187979268-97876a6f-7b7f-4424-8f6a-41ec2d3261ef.png)
 
