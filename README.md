@@ -25,8 +25,7 @@ Right click on compass shows the distance between an airdrop.(New! Version : 1.4
 
 ![Showcases](https://user-images.githubusercontent.com/88251253/187979216-cd9969f5-5875-4d7e-8a9d-bf3a87d0a8a5.png)
 
-[Youtube](https://www.youtube.com/watch?v=a0jdry1KY5o) Old version (1.3.0b)
-
+[Youtube](https://www.youtube.com/watch?v=a0jdry1KY5o) Note: In the showcase is using (1.3.0b)
 
 ![Permissions](https://user-images.githubusercontent.com/88251253/187979268-97876a6f-7b7f-4424-8f6a-41ec2d3261ef.png)
 
@@ -47,8 +46,8 @@ AirdropX.compass┃Default: op ▶ allow you to get a compass which navigating t
 
 ![support](https://user-images.githubusercontent.com/88251253/187979398-af83d8d3-1842-479e-9760-d748d9ce1a3b.png)
 
-Discord ➭ The fastest way.
-Discussion room ➭ fast but less than discord
+[Discord](https://discord.gg/2YxDhSQjqF) ➭ The fastest way.\
+[Discussion room](https://www.spigotmc.org/threads/airdropsx-1-16-5-1-19-x-gui-customization-custom-drop-rate-auto-random-dropping-etc.571353/) ➭ fast but less than discord
 
 ![FTD](https://user-images.githubusercontent.com/88251253/187979418-14e3279a-b6ce-4d38-a349-f2bdf9ab5aff.png)
 
