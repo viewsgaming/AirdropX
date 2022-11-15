@@ -30,3 +30,5 @@ permissions:
     default: false
   AirdropX.crashfixer:
     default: op
+  AirdropX.compass:
+    default: op

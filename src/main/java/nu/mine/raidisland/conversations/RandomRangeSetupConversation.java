@@ -21,7 +21,7 @@ public class RandomRangeSetupConversation extends SimplePrompt {
 
 	@Override
 	protected String getPrompt(ConversationContext context) {
-		return "&eWrite the range between 20 - 10,000. &cType \"Exit\" to end conversation.";
+		return "&eWrite the range between 20 - 30,000,000. &cType \"Exit\" to end conversation.";
 	}
 
 	@Override
@@ -31,7 +31,7 @@ public class RandomRangeSetupConversation extends SimplePrompt {
 
 		final int range = Integer.parseInt(input);
 
-		return range >= 20 && range <= 10000;
+		return range >= 20 && range <= 30_000_000;
 	}
 
 	@Override

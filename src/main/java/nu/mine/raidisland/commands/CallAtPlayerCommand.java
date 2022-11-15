@@ -40,7 +40,6 @@ public class CallAtPlayerCommand extends SimpleSubCommand {
 	@Override
 	protected void onCommand() {
 
-		checkConsole();
 		Airdrop airdrop = Airdrop.findAirdrop(args[0]);
 
 		checkNotNull(airdrop, "Couldn't find airdrop '{0}'. Available: " + (Airdrop.getAirdropsNames().isEmpty() ? "-" : Common.join(Airdrop.getAirdropsNames())));

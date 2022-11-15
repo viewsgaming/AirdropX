@@ -31,11 +31,16 @@ public class AutoDropSettingsMenu extends Menu {
 	@Position(9 * 1 + 4)
 	private final ButtonConversation timeButton;
 
+	@Position(9 * 1 + 5)
+	private final ButtonConversation RequirementConnectedPlayersButton;
+
+	@Position(8)
+	private final Button setAutoSpawnButton;
+
 	@Position(9 * 1 + 7)
 	private final Button startOrStopButton;
 
-	@Position(9 * 1 + 5)
-	private final ButtonConversation RequirementConnectedPlayersButton;
+
 
 
 	public AutoDropSettingsMenu(Airdrop airdrop) {
@@ -43,6 +48,43 @@ public class AutoDropSettingsMenu extends Menu {
 		setSize(9 * 3);
 		setTitle("&eAuto drop settings.");
 
+
+		setAutoSpawnButton = new Button() {
+
+			@Override
+			public void onClickedInMenu(Player player, Menu menu, ClickType click) {
+
+				boolean isReadyToStart = airdrop.isReadyToStart();
+
+				if (isReadyToStart) {
+					if (airdrop.isAutoStartSpawn()) {
+						airdrop.setAutoStartSpawn(false);
+						restartMenu("&CDisabled!!");
+					} else {
+						airdrop.setAutoStartSpawn(true);
+						restartMenu("&aEnabled!!");
+					}
+				} else {
+					restartMenu("&cPlease setup all the settings before start.");
+				}
+
+
+			}
+
+			@Override
+			public ItemStack getItem() {
+				boolean isEnabled = airdrop.isAutoStartSpawn();
+				return isEnabled ? ItemCreator.of(CompMaterial.LEVER,
+						"&c&lAuto spawn when server start.",
+						"",
+						"Current: &a&lEnabled").make()
+						:
+						ItemCreator.of(CompMaterial.LEVER,
+								"&c&lAuto spawn when server start.",
+								"",
+								"Current: &c&lDisabled").make();
+			}
+		};
 
 		startOrStopButton = new Button() {
 			@Override

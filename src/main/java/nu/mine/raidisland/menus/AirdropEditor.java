@@ -8,6 +8,7 @@ import org.bukkit.inventory.ItemStack;
 import org.mineacademy.fo.collection.StrictMap;
 import org.mineacademy.fo.menu.Menu;
 import org.mineacademy.fo.menu.MenuContainerChances;
+import org.mineacademy.fo.menu.MenuPagged;
 import org.mineacademy.fo.menu.button.ButtonConversation;
 import org.mineacademy.fo.menu.button.ButtonMenu;
 import org.mineacademy.fo.menu.button.annotation.Position;
@@ -102,4 +103,5 @@ public class AirdropEditor extends MenuContainerChances {
 		PlayerCache cache = PlayerCache.from(getViewer());
 		return new AirdropEditor(cache.getSelectedAirdrop());
 	}
+
 }

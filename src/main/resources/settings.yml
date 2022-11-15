@@ -7,6 +7,7 @@ Airdrop:
   Default_Range: 2000
   Default_Random_Location: true
   Broadcast_Location_On_Call: true
+  Auto_Remove_Chest: true
   # In seconds only (No suffix)
   Delay_Between_Each_Unboxing: 30
   # When player try to open an airdrop, must wait for a delay time first.
@@ -22,11 +23,41 @@ Airdrop:
   # -------------------------------------------------------------------------------------------------
   Location_Search_Attempts: 10
   # -------------------------------------------------------------------------------------------------
+  # Customize how your spawning event should look like.
+  # -------------------------------------------------------------------------------------------------
+  Spawning_Event:
+    Lightning_Strike:
+      How_Many_Strike: 3
+      Deal_Damage: false
+    Spawn_Zombie:
+      How_Many_Zombie: 5
+      Custom_Name: '&cAirdrop Guardian'
+      Ignore_Combust: true
+      Health: 40
+      Walk_Speed: 0.25
+      Attack_Damage: 1.0
+    Airstrike:
+      How_Many_Tnt: 40
+      Random_Radius: 12
+      Destroy_Block: false
+      Warning_Boss_Bar:
+        Enabled: true
+        # Warning range (Airdrop is a center location)
+        Range: 20
+        Text: '&cYou are nearby airstrike zone. Run away from airdrop!!'
+        Seconds: 5
+    Radiation:
+      Radiation_Range: 10
+      Damage_Per_Second: 1.0
+      Seconds: 10
+
+  # -------------------------------------------------------------------------------------------------
   # Custom holograms for an airdrop
   # IMPORTANT: You must always leave {do_not_remove_me_and_always_leave_me_in_last_line} in the last line and add line above it
   # otherwise plugin will be crashed.
   # -------------------------------------------------------------------------------------------------
   Holograms:
+    Enabled: true
     Main:
       # ------ Add line only in this box ------- #
       - '&c{airdrop_name}'
@@ -40,6 +71,21 @@ Airdrop:
       X: 0.5
       Y: -0.8
       Z: 0.6
+  Falling_Animation:
+    Height: 64
+    Material: NOTE_BLOCK
+
+
+# Do not enable if you don't have worldguard installed. Otherwise it'll throw an error.
+WorldGuard:
+  Enabled: false
+  # By default, Airdrop won't spawn inside worldguard region. thus, you can bypass it.
+  Bypass_Region: []
+
+Commands:
+  Compass:
+    # Cooldown in second
+    Cooldown: 120
 
 # ----------------------------(Experiment!)--------------------------------------------------------
 # This will be auto delete glitched airdrops when your server is fully loaded.
@@ -57,7 +103,6 @@ Crash_Fixer:
   # Speed is how fast that task will execute. (Recommends: 20 seconds)
   Speed: 20 seconds
 
-
 # -------------------------------------------------------------------------------------------------
 # What commands should trigger the main plugin command group?
 #
@@ -68,6 +113,7 @@ Command_Aliases: [airdropx , airdrop]
 # -------------------------------------------------------------------------------------------------
 # What language should we use for messages? If it exists, the language file will be copied 
 # to your messages/ folder where you can edit it.
+# Available: en (English) , th (Thai) , ru (Russian)
 # -------------------------------------------------------------------------------------------------
 Locale: en
 

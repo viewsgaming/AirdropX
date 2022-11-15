@@ -27,13 +27,16 @@ public final class PlayerCache extends YamlConfig {
 	private final UUID uniqueId;
 	private final String playerName;
 
+	private int openedAirdrop;
+
 	// This won't save into file
 	@Setter
 	private Airdrop selectedAirdrop;
 	@Setter
 	private boolean isDoingSetting;
+	@Setter
+	private long cooldownTime;
 
-	private static final Map<UUID , Long> cooldownMap = new HashMap<>();
 	// -------------------------
 
 	private PlayerCache(String playerName , UUID uniqueId) {
@@ -46,12 +49,18 @@ public final class PlayerCache extends YamlConfig {
 
 	@Override
 	protected void onLoad() {
-
+		openedAirdrop = getInteger("Opened_Airdrop" , 0);
 	}
 
 	@Override
 	public void onSave() {
+		this.set("Opened_Airdrop" , openedAirdrop);
+	}
 
+	public void increaseOpenedAirdrop(int value) {
+		this.openedAirdrop += value;
+
+		save();
 	}
 
 	/**
@@ -107,21 +116,20 @@ public final class PlayerCache extends YamlConfig {
 		}
 	}
 
-	public static boolean canAddCooldown(Player player) {
-
-		if (cooldownMap.containsKey(player.getUniqueId())) {
-			if (cooldownMap.get(player.getUniqueId()) > System.currentTimeMillis()) {
-				long timeLeft = (cooldownMap.get(player.getUniqueId()) - System.currentTimeMillis()) / 1000;
-				String formatMessage = Replacer.replaceArray(Lang.of("Player_Is_In_Cooldown"), "seconds_plural" , Common.plural(timeLeft , "second"));
-				Common.tellNoPrefix(player , formatMessage);
-				return false;
-			}
+	public boolean canAddCooldown() {
+		if (this.cooldownTime > System.currentTimeMillis()) {
+			final long timeleft = (this.cooldownTime - System.currentTimeMillis()) / 1000;
+			final String formatMessage = Replacer.replaceArray(Lang.of("Player_Is_In_Cooldown"), "seconds_plural" , Common.plural(timeleft , "second"));
+			Common.tellNoPrefix(toPlayer() , formatMessage);
+			return false;
 		}
 
 		return true;
 	}
-	public static void addCooldown(Player player) {
-		cooldownMap.put(player.getUniqueId() , System.currentTimeMillis() + (Settings.Airdrop.DELAY_BETWEEN_EACH_UNBOXING * 1000L));
+
+
+	public void addCooldown() {
+		this.cooldownTime = System.currentTimeMillis() + (Settings.Airdrop.DELAY_BETWEEN_EACH_UNBOXING * 1000L);
 	}
 
 

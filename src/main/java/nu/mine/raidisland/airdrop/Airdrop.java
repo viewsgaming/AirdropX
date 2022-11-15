@@ -1,10 +1,10 @@
 package nu.mine.raidisland.airdrop;
 
-
 import lombok.Getter;
 import lombok.NonNull;
 import nu.mine.raidisland.AirdropUtil;
 import nu.mine.raidisland.Core;
+import nu.mine.raidisland.enums.SpawningEvent;
 import nu.mine.raidisland.settings.DataSaver;
 import nu.mine.raidisland.settings.Settings;
 import nu.mine.raidisland.tasks.OpeningDelayTask;
@@ -52,6 +52,10 @@ public class Airdrop extends YamlConfig {
 
 	private SimpleTime openingDelayTime;
 
+	private List<SpawningEvent> onSpawnEvent = new ArrayList<>();
+
+	private boolean autoStartSpawn;
+
 	// ---------------------------- \\
 
 	// ---------- Auto drop ---------- \\
@@ -89,11 +93,18 @@ public class Airdrop extends YamlConfig {
 		this.maximumItems = 27;
 		this.requirementConnectedPlayers = 1;
 		this.openingDelayTime = Settings.Airdrop.DEFAULT_OPENING_DELAY_TIME;
-
+		this.onSpawnEvent.add(SpawningEvent.LIGHTNING_STRIKE);
+		this.autoStartSpawn = false;
 
 		this.loadConfiguration(NO_DEFAULT, "airdrop/" + airdropName + ".yml");
 	}
 
+
+	public void setAutoStartSpawn(boolean autoStartSpawn) {
+		this.autoStartSpawn = autoStartSpawn;
+
+		save();
+	}
 
 	public void setOpeningDelayTime(SimpleTime openingDelayTime) {
 		this.openingDelayTime = openingDelayTime;
@@ -180,6 +191,18 @@ public class Airdrop extends YamlConfig {
 		save();
 	}
 
+	public void addSpawningEvent(SpawningEvent event) {
+		this.onSpawnEvent.add(event);
+
+		save();
+	}
+
+	public void removeSpawningEvent(SpawningEvent event) {
+		this.onSpawnEvent.remove(event);
+
+		save();
+	}
+
 	@Override
 	protected void onLoad() {
 		this.airdropName = getString("Name");
@@ -197,6 +220,9 @@ public class Airdrop extends YamlConfig {
 		this.maximumItems = getInteger("Maximum_Items" , 27);
 		this.requirementConnectedPlayers = getInteger("Requirement_Connected_Players" , 1);
 		this.openingDelayTime = getTime("Opening_Delay_Time" , Settings.Airdrop.DEFAULT_OPENING_DELAY_TIME);
+        this.onSpawnEvent = getList("Spawning_Event" , SpawningEvent.class);
+		this.autoStartSpawn = getBoolean("Auto_Start_Spawn_When_Server_Start" , false);
+
 		save();
 	}
 
@@ -217,6 +243,8 @@ public class Airdrop extends YamlConfig {
 		this.set("Maximum_Items" , this.maximumItems);
 		this.set("Requirement_Connected_Players" , this.requirementConnectedPlayers);
 		this.set("Opening_Delay_Time" , this.openingDelayTime);
+		this.set("Spawning_Event" , this.onSpawnEvent);
+		this.set("Auto_Start_Spawn_When_Server_Start" , this.autoStartSpawn);
 	}
 
 	public boolean isReadyToStart() {
@@ -226,6 +254,7 @@ public class Airdrop extends YamlConfig {
 		} else {
 			return getCenter() != null && getAutoSpawnTime() != null;
 		}
+
 	}
 
 	/* ------------------------------------------------------------------------------- */
@@ -252,12 +281,15 @@ public class Airdrop extends YamlConfig {
 		loadedAirdrop.removeItem(airdrop);
 	}
 
+	public static List<Airdrop> getAirdrops() {
+		return loadedAirdrop.getItems();
+	}
+
 
 	/* ------------------------------------------------------------------------------- */
 	/* Static access (Active Task) */
 	/* ------------------------------------------------------------------------------- */
 
-	//In testing queue.
 	public static void addActiveTask(Airdrop airdrop , Chest chest , int timer) {
 
 		activeTask.put(chest , Common.runLater(timer, () -> {
@@ -304,7 +336,8 @@ public class Airdrop extends YamlConfig {
 		if (!openingDelayTask.isEmpty()) {
 			for (Map.Entry<Chest, BukkitTask> entry : openingDelayTask.entrySet()) {
 				openingDelayTask.put(entry.getKey() , Common.runLater(5, () -> {
-					entry.getKey().getBlock().setType(Material.AIR);
+					if (Settings.Airdrop.AUTO_REMOVE_CHEST)
+						entry.getKey().getBlock().setType(Material.AIR);
 					openingDelayTask.remove(entry.getKey());
 					DataSaver.getInstance().removeData(entry.getKey().getLocation());
 				}));
@@ -314,5 +347,19 @@ public class Airdrop extends YamlConfig {
 
 	public static void removeOpeningDelay(Chest chest) {
 		openingDelayTask.remove(chest);
+	}
+
+	public static void safetyStartAutoDrop() {
+		Core.stopAutoSpawnTask();
+		loadAirdrop();
+
+		for (Airdrop airdrop : getAirdrops()) {
+			if (airdrop.isReadyToStart() && airdrop.isAutoStartSpawn()) {
+				Core.startAutoSpawn(airdrop);
+			} else {
+				if (Core.containsAirdrop(airdrop))
+					Core.stopAutoSpawn(airdrop);
+			}
+		}
 	}
 }

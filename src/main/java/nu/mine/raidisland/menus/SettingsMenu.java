@@ -3,18 +3,24 @@ package nu.mine.raidisland.menus;
 import nu.mine.raidisland.PlayerCache;
 import nu.mine.raidisland.airdrop.Airdrop;
 import nu.mine.raidisland.conversations.*;
+import nu.mine.raidisland.enums.SpawningEvent;
 import nu.mine.raidisland.tasks.OpeningDelayTask;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
+import org.mineacademy.fo.ItemUtil;
 import org.mineacademy.fo.menu.Menu;
+import org.mineacademy.fo.menu.MenuPagged;
 import org.mineacademy.fo.menu.button.Button;
 import org.mineacademy.fo.menu.button.ButtonConversation;
 import org.mineacademy.fo.menu.button.ButtonMenu;
 import org.mineacademy.fo.menu.button.annotation.Position;
 import org.mineacademy.fo.menu.model.ItemCreator;
 import org.mineacademy.fo.remain.CompMaterial;
+
+import java.util.Arrays;
 
 public class SettingsMenu extends Menu {
 
@@ -37,6 +43,9 @@ public class SettingsMenu extends Menu {
 
 	@Position(9 * 1 + 6)
 	private final ButtonConversation setOpeningDelay;
+
+	@Position(9 * 1 + 7)
+	private final ButtonMenu onSpawnButton;
 
 	public SettingsMenu(Airdrop airdrop) {
 
@@ -121,6 +130,12 @@ public class SettingsMenu extends Menu {
 				"so you can open an airdrop.",
 				"",
 				"Current: " + airdrop.getOpeningDelayTime()));
+
+		onSpawnButton = new ButtonMenu(new OnSpawnEventSettings(airdrop) , ItemCreator.of(CompMaterial.BEACON,
+				"&cSpawning Events",
+				"",
+				"Add or remove spawning event",
+				"such as lighting strike , airstrike etc."));
 	}
 
 	@Override
@@ -131,5 +146,42 @@ public class SettingsMenu extends Menu {
 	@Override
 	public Menu newInstance() {
 		return new SettingsMenu(PlayerCache.from(getViewer()).getSelectedAirdrop());
+	}
+
+	private class OnSpawnEventSettings extends MenuPagged<SpawningEvent> {
+
+		private final Airdrop airdrop;
+
+
+
+		public OnSpawnEventSettings(Airdrop airdrop) {
+			super(9 , SettingsMenu.this , Arrays.asList(SpawningEvent.values()));
+
+			this.airdrop = airdrop;
+
+			this.setTitle("&cSpawning Events");
+		}
+
+		@Override
+		protected ItemStack convertToItemStack(SpawningEvent spawningEvent) {
+
+			return ItemCreator.of(spawningEvent.getMaterial() , "&c" + spawningEvent.getName())
+					.lore(spawningEvent.getDescription())
+					.glow(airdrop.getOnSpawnEvent().contains(spawningEvent))
+					.make();
+		}
+
+		@Override
+		protected void onPageClick(Player player, SpawningEvent spawningEvent, ClickType clickType) {
+
+			if (!airdrop.getOnSpawnEvent().contains(spawningEvent)) {
+				airdrop.addSpawningEvent(spawningEvent);
+				restartMenu("Selected " + spawningEvent.getName());
+			} else {
+				airdrop.removeSpawningEvent(spawningEvent);
+				restartMenu("Deselected " + spawningEvent.getName());
+			}
+
+		}
 	}
 }

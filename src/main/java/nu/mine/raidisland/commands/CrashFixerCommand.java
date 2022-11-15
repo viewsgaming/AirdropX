@@ -12,6 +12,7 @@ public class CrashFixerCommand extends SimpleSubCommand {
 
 		setMinArguments(0);
 		setPermission("AirdropX.crashfixer");
+		setDescription("Delete all glitched airdrops");
 	}
 
 	@Override

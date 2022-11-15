@@ -3,7 +3,9 @@ package nu.mine.raidisland;
 import nu.mine.raidisland.airdrop.Airdrop;
 import nu.mine.raidisland.models.Holograms;
 import nu.mine.raidisland.settings.DataSaver;
+import nu.mine.raidisland.settings.ExternalDatabase;
 import nu.mine.raidisland.settings.Settings;
+import nu.mine.raidisland.tasks.ArmorstandChecker;
 import nu.mine.raidisland.tasks.AutoSpawnTask;
 import nu.mine.raidisland.tasks.CrashFixerTask;
 import nu.mine.raidisland.tasks.RecycleTask;
@@ -20,7 +22,7 @@ import java.util.Map;
 
 public final class Core extends SimplePlugin {
 
-	public static final String VERSION = "1.3.0b";
+	public static final String VERSION = "1.4.2-BETA";
 	public static final String PREFIX = "&8[&7Airdrop&cX&8]";
 	private static final Map<Airdrop , BukkitTask> autoSpawnMap = new HashMap<>();
 
@@ -31,13 +33,16 @@ public final class Core extends SimplePlugin {
 
 	@Override
 	protected void onPluginStart() {
+
 		if (MinecraftVersion.olderThan(MinecraftVersion.V.v1_16)) {
 			Bukkit.getPluginManager().disablePlugin(this);
 			Common.log(PREFIX + "&c has been stopping!. You're using supported Minecraft version.");
+			return;
 		} else {
 			Common.setTellPrefix("");
 			Common.log(PREFIX + "&f has been running!");
 		}
+
 		if (Settings.CrashFixer.ENABLED)
 			Common.runTimer(Settings.CrashFixer.SPEED.getTimeTicks() , new CrashFixerTask());
 	}
@@ -52,7 +57,9 @@ public final class Core extends SimplePlugin {
 		clearGarbage();
 		stopAutoSpawnTask();
 
+		Common.runLater(1 , Airdrop::safetyStartAutoDrop);
 
+		Common.runTimer(20 , new ArmorstandChecker());
 	}
 
 	@Override
@@ -91,7 +98,7 @@ public final class Core extends SimplePlugin {
 
 
 	// Using this method when user reload plugin or server.
-	private void stopAutoSpawnTask() {
+	public static void stopAutoSpawnTask() {
 		if (autoSpawnMap.isEmpty()) return;
 
 		Common.runLater(1 , () -> {
