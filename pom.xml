@@ -13,7 +13,7 @@
 	<name>AirdropX</name>
 	
 	<!-- Change to the appropriate plugin's version, starting at 1.0.0. -->
-	<version>1.4.2-BETA</version>
+	<version>1.6.3-Experiment</version>
 	
 	<!-- DO NOT EDIT. -->
 	<packaging>jar</packaging>
@@ -38,7 +38,7 @@
 		
 		<!-- Change to the latest version from https://github.com/kangarko/Foundation/releases
 			 or change to "LATEST" if you downloaded Foundation to your disk and compiled it. -->
-		<foundation.version>6.2.1</foundation.version>
+		<foundation.version>6.7.4</foundation.version>
 		
 		<!-- Leave on "com.github.kangarko" if you use Foundation from GitHub like most people,
 			 or change to "org.mineacademy" if you downloaded our library to your disk and compiled it. -->
@@ -94,6 +94,14 @@
 			<artifactId>Foundation</artifactId>
 			<version>${foundation.version}</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.32</version>
+			<scope>provided</scope>
+		</dependency>
+
 	</dependencies>
 	
 	<!-- DO NOT EDIT unless instructed to do so or you know what you're doing. -->
