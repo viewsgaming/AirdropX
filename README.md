@@ -22,10 +22,14 @@ You are able to set a timer for the airdrop to determine where it will fall.
 • Spawning event accompany with 4 options (Customize via GUI) (Version : 1.4.0a+)\
 • Dropping animation (HOT!!) (New! Version : 1.4.1-BETA+)\
 • Right click on compass shows the distance between an airdrop.(New! Version : 1.4.1-BETA+)\
+• Automatic random spawn 1 selected airdrop from your selections set *Seperate from auto-dropping* (New! Version : 1.4.4-BETA+)\
+• Super performance twerks (1.6.0-Experiment)\
+• Prevent block placing nearby airdrops (1.6.1-Experiment)\
 
 ![Showcases](https://user-images.githubusercontent.com/88251253/187979216-cd9969f5-5875-4d7e-8a9d-bf3a87d0a8a5.png)
 
-[Youtube](https://www.youtube.com/watch?v=a0jdry1KY5o) Note: In the showcase is using (1.3.0b)
+[Youtube](https://www.youtube.com/watch?v=a0jdry1KY5o) (EN) Note: In the showcase is using (1.3.0b)\
+[Youtube](https://www.youtube.com/watch?v=a0jdry1KY5o](https://www.youtube.com/watch?v=CDaHtwc73IM)) (RU)
 
 ![Permissions](https://user-images.githubusercontent.com/88251253/187979268-97876a6f-7b7f-4424-8f6a-41ec2d3261ef.png)
 
@@ -39,10 +43,9 @@ You are able to set a timer for the airdrop to determine where it will fall.
 • AirdropX.bypass.opening_delay┃Default: false ▶ allow you to bypass opening delay. (1.3.0a or above)\
 • AirdropX.crashfixer┃Default: op ▶ allow you to delete glitched airdrop (1.3.0b or above)\
 • AirdropX.compass┃Default: op ▶ allow you to get a compass which navigating to an airdrop. (1.3.1a or above)\
+• AirdropX.randomspawn | Default: op ▶ allow you to setup airdrop random spawn. (1.4.4-BETA or above)\
 
-![Commands](https://user-images.githubusercontent.com/88251253/187979324-064f25b0-107f-43dc-8d10-a10ef0e2e162.png)
-
-![Screenshot 2022-08-28 224813](https://user-images.githubusercontent.com/88251253/187979375-d883b1df-df02-4b70-9109-d6655468e2c6.png)
+![Commands](https://github.com/Deware-PK/AirdropX/assets/88251253/12c96ca9-feca-42fb-b0f5-8d7b2dc41dca)
 
 ![support](https://user-images.githubusercontent.com/88251253/187979398-af83d8d3-1842-479e-9760-d748d9ce1a3b.png)
 
