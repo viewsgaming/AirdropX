@@ -1,0 +1,47 @@
+# Important for user before 1.4.1 version #
+# placehoder {location} has been replaced to {world} {x} {y} {z} #
+
+Broadcast_Location: '{prefix} &7The &c{airdrop_name} &7airdrop&c has been dropped at&f {world} [{x}, {y}, {z}]'
+Broadcast_Timeout: '{prefix} &cThe &f{airdrop_name}&c airdrop has been took away.'
+Broadcast_Player_Took_Airdrop: "&8&l[&5&l!&8&l]&c {prefix} &f{player} &7has taken all items inside &f{airdrop_name} &7airdrop"
+Broadcast_Not_Enough_Player_To_Spawn: "{prefix} &f{airdrop_name}&7 required &c{requirement}&7 online players to spawn&c!!"
+Player_Is_In_Cooldown: "&8&l[&5&l!&8&l]&c You must wait for {seconds_plural} to unbox the airdrop again!"
+Airdrop_In_Delay: "&8&l[&5&l!&8&l]&c Please wait until a delay is finish!"
+Airdrop_Preparing_To_Open: "{prefix} &f{airdrop_name} &c{world} [{x}, {y}, {z}] &7can be opened in &f{time}"
+Cannot_Build: "&8&l[&5&l!&8&l]&c You cannot build anything nearby an airdrop within {radius} blocks."
+
+Show_Distance: "&aYou are &f{distance} &ablocks away from airdrops."
+
+Commands:
+  Compass_Cooldown: '&cWait {duration} second(s) before using this command again.'
+
+# -------------------------------------------------------------------------------------------------
+# Messages shown when player runs a command he lacks permission for
+# -------------------------------------------------------------------------------------------------
+No_Permission: "&cNo permission: {permission}"
+
+# -------------------------------------------------------------------------------------------------
+# Words for both singular and plural form. Separate these two forms with ", "
+# -------------------------------------------------------------------------------------------------
+Cases:
+  Second: second, seconds
+  Minute: minute, minutes
+  Hour: hour, hours
+  Message: message, messages
+  Command: command, commands
+
+# -------------------------------------------------------------------------------------------------
+# Different prefixes you can use by calling {prefix_<type>} such as {prefix_info}
+# -------------------------------------------------------------------------------------------------
+Prefix:
+  Info: "&8&l[&9&li&8&l]&7 "
+  Success: "&8&l[&2&l!&8&l]&7 "
+  Warn: "&8&l[&6&l!&8&l]&6 "
+  Error: "&8&l[&4&lX&8&l]&c "
+  Question: "&8&l[&a&l?&l&8]&7 "
+  Announce: "&8&l[&5&l!&l&8]&d "
+
+# -------------------------------------------------------------------------------------------------
+# Internal versioning number
+# -------------------------------------------------------------------------------------------------
+Version: 1
