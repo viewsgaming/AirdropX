@@ -1,170 +1,72 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	
-	<!-- Change to your own main package name. -->
-	<groupId>nu.mine.raidisland</groupId>
-	
-	<!-- Change to your plugin name, must be lower cased and match your end package name. No spaces. -->
-	<artifactId>airdropx</artifactId>
-	
-	<!-- Change to your plugin's name. Can contain capital letters, but do NOT use spaces. -->
-	<name>AirdropX</name>
-	
-	<!-- Change to the appropriate plugin's version, starting at 1.0.0. -->
-	<version>1.6.3-Experiment</version>
-	
-	<!-- DO NOT EDIT. -->
-	<packaging>jar</packaging>
-	
-	<properties>
-		
-		<!-- Change to your name or the main project author. -->
-		<author>Deware</author>
-		
-		<!-- Change to the full path where your main plugin class is located. -->
-		<main.class>nu.mine.raidisland.Core</main.class>
-		
-		<!-- Change the Java version this plugin is built on.
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-			 IMPORTANT: For Java 8, version is "1.8", for Java 11+ it is only "11" or "17".
+    <groupId>nu.mine.raidisland</groupId>
+    <artifactId>airdropx</artifactId>
+    <version>1.6.3</version>
+    <name>AirdropX</name>
+    <packaging>jar</packaging>
 
-			 If you use 1.8 then your plugin will work on newer versions,
-			 but if you use "11" or "17" then it will NOT load on servers
-			 with previous Java versions. We recommend you stick with 1.8.
-			 -->
-		<java.version>1.8</java.version>
-		
-		<!-- Change to the latest version from https://github.com/kangarko/Foundation/releases
-			 or change to "LATEST" if you downloaded Foundation to your disk and compiled it. -->
-		<foundation.version>6.7.4</foundation.version>
-		
-		<!-- Leave on "com.github.kangarko" if you use Foundation from GitHub like most people,
-			 or change to "org.mineacademy" if you downloaded our library to your disk and compiled it. -->
-		<foundation.path>com.github.kangarko</foundation.path>
-		
-		<!-- DO NOT EDIT. -->
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
-	
-	<repositories>
-		<!-- DO NOT EDIT, used to pull Foundation from the JitPack site. -->
-		<repository>
-			<id>jitpack.io</id>
-			<url>https://jitpack.io</url>
-		</repository>
-		<repository>
-			<id>Maven Central</id>
-			<url>https://repo1.maven.org/maven2/</url>
-		</repository>
-	</repositories>
-	
-	<!-- Do NOT edit. -->
-	<pluginRepositories>
-		<pluginRepository>
-			<id>maven-snapshots</id>
-			<url>https://repository.apache.org/content/repositories/snapshots/</url>
-		</pluginRepository>
-	</pluginRepositories>
-	
-	<dependencies>
-		
-		<!-- (Optional) Access the server jar for NMS (groupId, artifactId and version do not matter,
-			 but keep version in artifactId and not in version if using multiple NMS imports,
-			 otherwise Maven will fail to import them correctly).
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>17</java.version>
+    </properties>
 
-			 NB: The <systemPath> is set to the "library" folder in your source folder (in the same parent
-			     directory where you have "target" and will look for file patched_1.8.8.jar there as an example. -->
-		<!--<dependency>
-			<groupId>paper-server</groupId>
-			<artifactId>Paper-1.8.8</artifactId>
-			<version>1</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/library/patched_1.8.8.jar</systemPath>
-		</dependency>-->
-		
-        <!-- We do not need to import Spigot API since it is made available through Foundation below.
-            If you want to code for another MC version, import it above Foundation as per https://www.spigotmc.org/wiki/spigot-maven/ -->		
-		
-		<!-- Use our Foundation library. It contains the latest Spigot API, you only need to import that if you build
-			 for a different version. In that case, place your API above Foundation so Maven will prioritize it. -->
-		<dependency>
-			<groupId>${foundation.path}</groupId>
-			<artifactId>Foundation</artifactId>
-			<version>${foundation.version}</version>
-		</dependency>
+    <repositories>
+        <!-- PaperMC repository for Paper API -->
+        <repository>
+            <id>papermc</id>
+            <url>https://repo.papermc.io/repository/maven-public/</url>
+        </repository>
+    </repositories>
 
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.18.32</version>
-			<scope>provided</scope>
-		</dependency>
+    <dependencies>
+        <!-- Paper API 1.21.4 -->
+        <dependency>
+            <groupId>io.papermc.paper</groupId>
+            <artifactId>paper-api</artifactId>
+            <version>1.21.4-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
 
-	</dependencies>
-	
-	<!-- DO NOT EDIT unless instructed to do so or you know what you're doing. -->
-	<build>
-		<finalName>${project.name}-${project.version}</finalName>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				
-				<!-- Change version to the latest one from
-					 https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-jar-plugin -->
-				<version>3.2.2</version>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				
-				<!-- Change version to the latest one from
-					 https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
-				<version>3.10.1</version>
-				<configuration>
-					<source>${java.version}</source>
-					<target>${java.version}</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-shade-plugin</artifactId>
-				
-				<!-- We use latest snapshot here for modern Java compatibility. Change version to the latest one from
-					 https://repository.apache.org/content/repositories/snapshots/org/apache/maven/plugins/maven-shade-plugin/ -->
-				<version>3.3.1-SNAPSHOT</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>shade</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<createDependencyReducedPom>false</createDependencyReducedPom>
-					<artifactSet>
-						<includes>
-							<include>${foundation.path}:Foundation*</include>
-						</includes>
-					</artifactSet>
-					<relocations>
-						<!-- Move the Foundation library into your own package in "lib" subpackage to prevent interference. -->
-						<relocation>
-							<pattern>org.mineacademy.fo</pattern>
-							<shadedPattern>${project.groupId}.${project.artifactId}.lib</shadedPattern>
-						</relocation>
-					</relocations>
-				</configuration>
-			</plugin>
-		</plugins>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>true</filtering>
-			</resource>
-		</resources>
-	</build>
+        <!-- Optional: Lombok (if you use it in code) -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.32</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>${project.artifactId}-${project.version}</finalName>
+        <plugins>
+            <!-- Java compiler plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.10.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+
+            <!-- JAR packaging plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.2</version>
+            </plugin>
+        </plugins>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
 </project>
