@@ -1,36 +1,75 @@
-name: ${project.name}
-version: ${project.version}
-main: ${main.class}
-author: ${author}
-api-version: 1.13
+name: AirdropX
+version: 1.6.3
+main: nu.mine.raidisland.Core
+author: Deware
+api-version: 1.20
 
 libraries:
   - org.openjdk.nashorn:nashorn-core:15.4
 
-softdepend: [AuthMe, BanManager, BungeeChatAPI, CMI, DiscordSRV, Factions, Feudal, ItemsAdder, Essentials, LegacyFactions, Lands, LuckPerms, Multiverse-Core, MVdWPlaceholderAPI, MythicMobs, mcMMO, Nicky, PlaceholderAPI, ProtocolLib, SimpleClans, Towny, TownyChat, Vault, WorldEdit]
+softdepend:
+  - AuthMe
+  - BanManager
+  - BungeeChatAPI
+  - CMI
+  - DiscordSRV
+  - Factions
+  - Feudal
+  - ItemsAdder
+  - Essentials
+  - LegacyFactions
+  - Lands
+  - LuckPerms
+  - Multiverse-Core
+  - MVdWPlaceholderAPI
+  - MythicMobs
+  - mcMMO
+  - Nicky
+  - PlaceholderAPI
+  - ProtocolLib
+  - SimpleClans
+  - Towny
+  - TownyChat
+  - Vault
+  - WorldEdit
 
 commands:
+  airdropx:
+    description: Root command for AirdropX
+    usage: /<command> <subcommand>
+    aliases: [adrop, adx]
 
 permissions:
   AirdropX.create:
+    description: Allows creation of airdrops
     default: op
   AirdropX.edit:
+    description: Allows editing of airdrops
     default: op
   AirdropX.call:
+    description: Allows calling airdrops
     default: op
   AirdropX.remove:
+    description: Allows removal of airdrops
     default: op
   AirdropX.listall:
+    description: List all active airdrops
     default: op
   AirdropX.callatplayer:
+    description: Drop airdrop at a player location
     default: op
   AirdropX.bypass.delay:
+    description: Bypass delay for airdrop calls
     default: false
   AirdropX.bypass.opening_delay:
+    description: Bypass opening delay
     default: false
   AirdropX.crashfixer:
+    description: Fixes buggy airdrops
     default: op
   AirdropX.compass:
+    description: Compass locator for airdrops
     default: op
   AirdropX.randomspawn:
+    description: Spawns airdrops randomly
     default: op
